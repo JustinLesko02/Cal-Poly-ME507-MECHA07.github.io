@@ -18,9 +18,17 @@ The goal of this website is to document our efforts complete the project.  On th
  mechanical, electrical, and software designs.  Also included on this page is navigation to more in depth documentation
  of the rest of our software.
 
+ <pre>
+
+</pre>
+
 <img src="https://cal-poly-me507-mecha07.github.io/Feeder%20Picture.jpg" style="width: 50%; height: 50%">
 
 Figure 1.  Image of the cat feeder.
+
+<pre>
+
+</pre>
 
 \htmlonly
 <iframe width="560" height="315" src="https://www.youtube.com/embed/INiQte2DkHs?si=SLNbhLrZdzP5DMYY" title="YouTube video player" allowfullscreen></iframe>
@@ -28,10 +36,19 @@ Figure 1.  Image of the cat feeder.
 
 Figure XX.  Video of the cat feeder dispensing food
 
+<pre>
+
+</pre>
+
 <img src="https://cal-poly-me507-mecha07.github.io/Website%20Screenshot.png" style="width: 50%; height: 50%">
 
 Figure XX.  Screenshot of the cat feeder website.
 
+<pre>
+
+
+
+</pre>
 
 ### Mechanical Design
 
@@ -44,6 +61,11 @@ Figure XX.  Isometric view of the cat feeder 3D model.
 
 Figure XX.  Isometric view of the cat feeder lead screw.
 
+<pre>
+
+
+
+</pre>
 
 ### Electrical Design
 
@@ -57,30 +79,59 @@ The PCB was fabricated and assembled by an online PCB manufacturing service.  Th
  exposed on the outside of the feeder, to prevent the cat from chewing the cables.  The board was programmed with an ST-Link
  module connected via pin headers.
 
+ <pre>
+
+</pre>
+
 <img src="https://cal-poly-me507-mecha07.github.io/PCB%20Assembled.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  Image of the assembled PCB.
+
+<pre>
+
+</pre>
 
 <img src="https://cal-poly-me507-mecha07.github.io/PCB%20Installed.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  Image of the installed PCB and power supply.
 
-<img src="https://cal-poly-me507-mecha07.github.io/MCU%20Schematic.png" style="width: 50%; height: 50%">
+<pre>
+
+</pre>
+
+<img src="https://cal-poly-me507-mecha07.github.io/MCU%20Schematic.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  Schematic of the microcontroller circuitry.
 
-<img src="https://cal-poly-me507-mecha07.github.io/Power%20Schematic.png" style="width: 50%; height: 50%">
+<pre>
+
+</pre>
+
+<img src="https://cal-poly-me507-mecha07.github.io/Power%20Schematic.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  Schematic of the power supply circuitry.
 
-<img src="https://cal-poly-me507-mecha07.github.io/ADC%20Schematic.png" style="width: 50%; height: 50%">
+<pre>
+
+</pre>
+
+<img src="https://cal-poly-me507-mecha07.github.io/ADC%20Schematic.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  Schematic of the ADC circuitry.
+
+<pre>
+
+</pre>
 
 <img src="https://cal-poly-me507-mecha07.github.io/PCB%20Screenshot.png" style="width: 50%; height: 50%">
 
 Figure XX.  Screenshot of the PCB design.
 
+<pre>
+
+
+
+</pre>
 
 ### Software Design
 
@@ -107,22 +158,43 @@ The main function first initializes the interface, then the ADC, and finally sta
  function, which runs the ADC FSM and the filling FSM.  The main loop is slowed to a speed of 100Hz to allow time for the wifi
  module uart connection to fill in the buffer.
 
+ <pre>
+
+</pre>
+
  <img src="https://cal-poly-me507-mecha07.github.io/Main%20FSM.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  State space diagram of the main FSM.
+
+<pre>
+
+</pre>
 
 <img src="https://cal-poly-me507-mecha07.github.io/Wifi%20FSM.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  State space diagram of the wifi initialization FSM
 
+<pre>
+
+</pre>
+
 <img src="https://cal-poly-me507-mecha07.github.io/ADC%20FSM.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  State space diagram of the ADC reading FSM
+
+<pre>
+
+</pre>
 
 <img src="https://cal-poly-me507-mecha07.github.io/Filling%20FSM.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  State space diagram of the filling FSM
 
+<pre>
+
+
+
+</pre>
 
 ### Challenges
 
@@ -154,3 +226,9 @@ Due to the scope of the project and the timeline we had it was inevitable that w
  interaction with modern web browsers.  Modern web browsers have various requirements about how http servers need to 
  behave.  Further, these requirements are not well documented and web browsers provide very little error feedback.
  As a result, developing the server required a lot of guess and check before our browsers would accept the website.
+
+ <pre>
+
+
+
+</pre>
