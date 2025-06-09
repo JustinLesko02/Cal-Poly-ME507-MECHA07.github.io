@@ -1,6 +1,5 @@
-var files_dup =
+var dir_badbba509fe09ada06e61e3c7a13cb3d =
 [
-    [ "Main page", "dir_1121e1953d7c43b6f55ef0ff2bf5f14a.html", null ],
     [ "Filler.c", "_filler_8c.html", "_filler_8c" ],
     [ "Filler.h", "_filler_8h.html", "_filler_8h" ],
     [ "Interface.c", "_interface_8c.html", "_interface_8c" ],
