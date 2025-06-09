@@ -26,6 +26,7 @@ var NAVTREE =
 [
   [ "ME507 Term Project G", "index.html", [
     [ "ME507 MECHA07 TERM PROJECT", "index.html", null ],
+    [ "Hello! Welcome to our Mechatronics Term Project. Created by Evan Long and Justin Lesko.", "md__r_e_a_d_m_e.html", null ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],

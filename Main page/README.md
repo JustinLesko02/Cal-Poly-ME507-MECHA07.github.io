@@ -139,7 +139,7 @@ The software installed on the MCU has two goals.  The first goal is dispensing t
  the bowl when required.  The second goal is hosting an http server to accept user inputs.  The software is written in c and
  is divided into two classes: Filler and Interface, which handle the filling and the server, respectively.
 
-A link to our project github can be found here: 
+A link to our project github can be found here: (GITHUB)[https://github.com/Cal-Poly-ME507-MECHA07/Cal-Poly-ME507-MECHA07.github.io]
 
 Naturally, the 96MHz MCU speed is overkill for the speed that the cat feeder needs to update its outputs.  As
  a result, we have the freedom to complete the control logic with simple Finite State Machines (FSM).  The filling action
