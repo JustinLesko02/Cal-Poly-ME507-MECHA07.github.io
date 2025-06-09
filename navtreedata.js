@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "ME507 Term Project G", "index.html", [
-    [ "ME507 MECHA07 TERM PROJECT", "index.html", "index" ],
+    [ "ME507 MECHA07 TERM PROJECT", "index.html", null ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],

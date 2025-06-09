@@ -1,6 +1,6 @@
 # ME507 MECHA07 TERM PROJECT # {#mainpage}
 
-# Hello! Welcome to our Mechatronics Term Project.  Created by Evan Long and Justin Lesko.
+### Hello! Welcome to our Mechatronics Term Project.  Created by Evan Long and Justin Lesko.
 
 The following content documents our completion of Cal Poly's ME507 Mechatronics Term Project.  The overall goal of the
  project was to select a personal project that requires automation and design a custom PCB to accomplish the task.
