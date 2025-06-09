@@ -19,9 +19,16 @@ The goal of this website is to document our efforts complete the project.  On th
  of the rest of our software.
 
 <img src="https://cal-poly-me507-mecha07.github.io/Feeder%20Picture.jpg" style="width: 50%; height: 50%">
+
 Figure 1.  Image of the cat feeder.
 
+\htmlonly
+<iframe width="560" height="315" src="https://www.youtube.com/embed/INiQte2DkHs?si=SLNbhLrZdzP5DMYY" title="YouTube video player" allowfullscreen></iframe>
+\endhtmlonly
+
 Figure XX.  Video of the cat feeder dispensing food
+
+<img src="https://cal-poly-me507-mecha07.github.io/Website%20Screenshot.png" style="width: 50%; height: 50%">
 
 Figure XX.  Screenshot of the cat feeder website.
 
@@ -50,15 +57,27 @@ The PCB was fabricated and assembled by an online PCB manufacturing service.  Th
  exposed on the outside of the feeder, to prevent the cat from chewing the cables.  The board was programmed with an ST-Link
  module connected via pin headers.
 
+<img src="https://cal-poly-me507-mecha07.github.io/PCB%20Assembled.jpg" style="width: 50%; height: 50%">
+
 Figure XX.  Image of the assembled PCB.
+
+<img src="https://cal-poly-me507-mecha07.github.io/PCB%20Installed.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  Image of the installed PCB and power supply.
 
+<img src="https://cal-poly-me507-mecha07.github.io/MCU%20Schematic.png" style="width: 50%; height: 50%">
+
 Figure XX.  Schematic of the microcontroller circuitry.
+
+<img src="https://cal-poly-me507-mecha07.github.io/Power%20Schematic.png" style="width: 50%; height: 50%">
 
 Figure XX.  Schematic of the power supply circuitry.
 
+<img src="https://cal-poly-me507-mecha07.github.io/ADC%20Schematic.png" style="width: 50%; height: 50%">
+
 Figure XX.  Schematic of the ADC circuitry.
+
+<img src="https://cal-poly-me507-mecha07.github.io/PCB%20Screenshot.png" style="width: 50%; height: 50%">
 
 Figure XX.  Screenshot of the PCB design.
 
@@ -88,11 +107,50 @@ The main function first initializes the interface, then the ADC, and finally sta
  function, which runs the ADC FSM and the filling FSM.  The main loop is slowed to a speed of 100Hz to allow time for the wifi
  module uart connection to fill in the buffer.
 
+ <img src="https://cal-poly-me507-mecha07.github.io/Main%20FSM.jpg" style="width: 50%; height: 50%">
+
 Figure XX.  State space diagram of the main FSM.
+
+<img src="https://cal-poly-me507-mecha07.github.io/Wifi%20FSM.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  State space diagram of the wifi initialization FSM
 
+<img src="https://cal-poly-me507-mecha07.github.io/ADC%20FSM.jpg" style="width: 50%; height: 50%">
+
 Figure XX.  State space diagram of the ADC reading FSM
+
+<img src="https://cal-poly-me507-mecha07.github.io/Filling%20FSM.jpg" style="width: 50%; height: 50%">
 
 Figure XX.  State space diagram of the filling FSM
 
+
+### Challenges
+
+Due to the scope of the project and the timeline we had it was inevitable that we would run into challenges along the way.
+ Here, we document some of the most important challenges to complete the project documentation and demonstrate our problem
+ solving abilities.  The list is not exhaustive, and is ordered by descending priority.
+
+1. Failure to fill completely.  Originally, we intended to use the second stepper motor as a lid for the bowl, and rely 
+ entirely on gravity to carry the food down the ramp and into the bowl.  While the food reached the bowl, it did not fill
+ as full as we desired.  As a result, we made the compromise to replace the lid with the flap to ensure proper filling.
+
+2. Feed screw stepper motor skipping.  Our first design did not include a gearbox on the feed screw stepper motor.  After
+ constructing the feeder and testing the filling, we found that the screw stepper would occasionally skip due to excessive
+ resistance from the cat food.  As a result, we had to add the gearbox to the stepper motor to increase the torque.
+
+3. Incorrect voltage regulator feedback resistor value.  When ordering the board, I found that the online assembly service did
+ not have the exact value of resistor I needed.  I picked the closest value and ordered the board.  Later, I double checked
+ my work and found that the new value I picked would decrease the output voltage of the regulator to an unacceptable level.
+ As a result, we had to swap out the resistor manually after the board arrived
+
+4. Insufficient flap motor torque.  We wanted the flap motor to be current limited such that it is incapable of harming the 
+ cat.  We selected a motor with a very small output torque.  After testing, we found that the torque was insufficient to
+ rotate the flap.  As a result, we had to swap out the motor to a different model.  Since the encoder was integrated, this
+ also meant swapping out the encoder.  Unfortunately, the new encoder was 5V rather than 3.3V.  Luckily, we were able to 
+ pull 5V from the ADC circuit to power the encoder, since the pins on the MCU that were reading the encoder were 5V 
+ tolerant.
+
+5. HTTP server development.  Unforunately, developing an http server from scratch is challenging because it requires 
+ interaction with modern web browsers.  Modern web browsers have various requirements about how http servers need to 
+ behave.  Further, these requirements are not well documented and web browsers provide very little error feedback.
+ As a result, developing the server required a lot of guess and check before our browsers would accept the website.
