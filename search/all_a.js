@@ -6,8 +6,8 @@ var searchData=
   ['lc2_5fsig_3',['LC2_SIG',['../_filler_8c.html#a7c611e3ae35ef6a1592fe7502097989a',1,'Filler.c']]],
   ['lcspi_4',['lcSpi',['../structadc__struct__t.html#a81ef003bd59f71a13050b2f32b9b1371',1,'adc_struct_t']]],
   ['left_5foffset_5',['LEFT_OFFSET',['../_filler_8c.html#ac746391726a9d3d7f246f336148d8590',1,'Filler.c']]],
-  ['lesko_6',['Lesko',['../md__r_e_a_d_m_e.html',1,'Hello! Welcome to our Mechatronics Term Project.  Created by Evan Long and Justin Lesko.'],['../index.html#autotoc_md0',1,'Hello! Welcome to our Mechatronics Term Project. Created by Evan Long and Justin Lesko.']]],
+  ['lesko_6',['Hello! Welcome to our Mechatronics Term Project. Created by Evan Long and Justin Lesko.',['../index.html#autotoc_md0',1,'']]],
   ['less_5fval_7',['LESS_VAL',['../_interface_8c.html#a323d2e9f7aa628a0bbf3d93ab7912783',1,'Interface.c']]],
-  ['long_20and_20justin_20lesko_8',['Long and Justin Lesko',['../md__r_e_a_d_m_e.html',1,'Hello! Welcome to our Mechatronics Term Project.  Created by Evan Long and Justin Lesko.'],['../index.html#autotoc_md0',1,'Hello! Welcome to our Mechatronics Term Project. Created by Evan Long and Justin Lesko.']]],
+  ['long_20and_20justin_20lesko_8',['Hello! Welcome to our Mechatronics Term Project. Created by Evan Long and Justin Lesko.',['../index.html#autotoc_md0',1,'']]],
   ['lweight_9',['lWeight',['../structadc__struct__t.html#acf006380c538eede62b1c26b4a93b41d',1,'adc_struct_t']]]
 ];
