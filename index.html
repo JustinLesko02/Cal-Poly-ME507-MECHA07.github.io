@@ -115,8 +115,8 @@ Hello! Welcome to our Mechatronics Term Project. Created by Evan Long and Justin
 
 
 
-</pre><h2 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
-Mechanical Design</h2>
+</pre><h3 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+Mechanical Design</h3>
 <p>The mechanical structure was constructed primarily with aluminum and acryllic sheets that are tabbed and slotted together. The primary dispensing action is accomplished with a 3D printed lead screw powered by a geared stepper motor. To assist the filling, there is a second stepper motor with a brush flap to push the cat food all the way into the bowl.</p>
 <p>Figure XX. Isometric view of the cat feeder 3D model.</p>
 <p>Figure XX. Isometric view of the cat feeder lead screw.</p>
@@ -124,8 +124,8 @@ Mechanical Design</h2>
 
 
 
-</pre><h2 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
-Electrical Design</h2>
+</pre><h3 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+Electrical Design</h3>
 <p>All the electronic circuitry is designed into the custom PCB. The PCB accepts 12V power from an external power supply, and provides terminal block interfaces to connect 2 stepper motors, 2 encoders, and 2 load cells. The wifi module is connected directly to the PCB via female headers. The PCB contains a power regulation circuit, a STM32F411 microcontroller (MCU), stepper motor drivers, an ADC IC, and a calendar IC. <br  />
 </p>
 <p>The PCB was fabricated and assembled by an online PCB manufacturing service. The board and power supply are installed underneath the feeder, and the motors and load cells are wired directly the board with the requirement that no wires can be exposed on the outside of the feeder, to prevent the cat from chewing the cables. The board was programmed with an ST-Link module connected via pin headers.</p>
@@ -157,8 +157,8 @@ Electrical Design</h2>
 
 
 
-</pre><h2 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
-Software Design</h2>
+</pre><h3 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+Software Design</h3>
 <p>The software installed on the MCU has two goals. The first goal is dispensing the correct amount of food into the bowl when required. The second goal is hosting an http server to accept user inputs. The software is written in c and is divided into two classes: Filler and Interface, which handle the filling and the server, respectively.</p>
 <p>A link to our project github can be found here:</p>
 <p>Naturally, the 96MHz MCU speed is overkill for the speed that the cat feeder needs to update its outputs. As a result, we have the freedom to complete the control logic with simple Finite State Machines (FSM). The filling action is accompished with two FSMs. The first FSM is responsible for reading the load cell values from the ADC. The second FSM is responsible for updating the stepper motor speeds at the appropriate time.</p>
@@ -184,8 +184,8 @@ Software Design</h2>
 
 
 
-</pre><h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Challenges</h2>
+</pre><h3 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
+Challenges</h3>
 <p>Due to the scope of the project and the timeline we had it was inevitable that we would run into challenges along the way. Here, we document some of the most important challenges to complete the project documentation and demonstrate our problem solving abilities. The list is not exhaustive, and is ordered by descending priority.</p>
 <ol type="1">
 <li>Failure to fill completely. Originally, we intended to use the second stepper motor as a lid for the bowl, and rely entirely on gravity to carry the food down the ramp and into the bowl. While the food reached the bowl, it did not fill as full as we desired. As a result, we made the compromise to replace the lid with the flap to ensure proper filling.</li>
