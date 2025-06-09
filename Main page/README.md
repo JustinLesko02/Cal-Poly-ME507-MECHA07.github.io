@@ -34,7 +34,7 @@ Figure 1.  Image of the cat feeder.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/INiQte2DkHs?si=SLNbhLrZdzP5DMYY" title="YouTube video player" allowfullscreen></iframe>
 \endhtmlonly
 
-Figure XX.  Video of the cat feeder dispensing food
+Figure 2.  Video of the cat feeder dispensing food
 
 <pre>
 
@@ -42,7 +42,7 @@ Figure XX.  Video of the cat feeder dispensing food
 
 <img src="https://cal-poly-me507-mecha07.github.io/Website%20Screenshot.png" style="width: 50%; height: 50%">
 
-Figure XX.  Screenshot of the cat feeder website.
+Figure 3.  Screenshot of the cat feeder website.
 
 <pre>
 
@@ -57,9 +57,9 @@ The mechanical structure was constructed primarily with aluminum and acryllic sh
  the filling, there is a second stepper motor with a brush flap to push the cat food all the way into the bowl.
 
 
-Figure XX.  Isometric view of the cat feeder 3D model.
+Figure 4.  Isometric view of the cat feeder 3D model.
 
-Figure XX.  Isometric view of the cat feeder lead screw.
+Figure 5.  Isometric view of the cat feeder lead screw.
 
 <pre>
 
@@ -85,7 +85,7 @@ The PCB was fabricated and assembled by an online PCB manufacturing service.  Th
 
 <img src="https://cal-poly-me507-mecha07.github.io/PCB%20Assembled.jpg" style="width: 50%; height: 50%">
 
-Figure XX.  Image of the assembled PCB.
+Figure 6.  Image of the assembled PCB.
 
 <pre>
 
@@ -93,7 +93,7 @@ Figure XX.  Image of the assembled PCB.
 
 <img src="https://cal-poly-me507-mecha07.github.io/PCB%20Installed.jpg" style="width: 50%; height: 50%">
 
-Figure XX.  Image of the installed PCB and power supply.
+Figure 7.  Image of the installed PCB and power supply.
 
 <pre>
 
@@ -101,7 +101,7 @@ Figure XX.  Image of the installed PCB and power supply.
 
 <img src="https://cal-poly-me507-mecha07.github.io/MCU%20Schematic.jpg" style="width: 50%; height: 50%">
 
-Figure XX.  Schematic of the microcontroller circuitry.
+Figure 8.  Schematic of the microcontroller circuitry.
 
 <pre>
 
@@ -109,7 +109,7 @@ Figure XX.  Schematic of the microcontroller circuitry.
 
 <img src="https://cal-poly-me507-mecha07.github.io/Power%20Schematic.jpg" style="width: 50%; height: 50%">
 
-Figure XX.  Schematic of the power supply circuitry.
+Figure 9.  Schematic of the power supply circuitry.
 
 <pre>
 
@@ -117,7 +117,7 @@ Figure XX.  Schematic of the power supply circuitry.
 
 <img src="https://cal-poly-me507-mecha07.github.io/ADC%20Schematic.jpg" style="width: 50%; height: 50%">
 
-Figure XX.  Schematic of the ADC circuitry.
+Figure 10.  Schematic of the ADC circuitry.
 
 <pre>
 
@@ -125,7 +125,7 @@ Figure XX.  Schematic of the ADC circuitry.
 
 <img src="https://cal-poly-me507-mecha07.github.io/PCB%20Screenshot.png" style="width: 50%; height: 50%">
 
-Figure XX.  Screenshot of the PCB design.
+Figure 11.  Screenshot of the PCB design.
 
 <pre>
 
@@ -164,7 +164,7 @@ The main function first initializes the interface, then the ADC, and finally sta
 
  <img src="https://cal-poly-me507-mecha07.github.io/Main%20FSM.jpg" style="width: 50%; height: 50%">
 
-Figure XX.  State space diagram of the main FSM.
+Figure 12.  State space diagram of the main FSM.
 
 <pre>
 
@@ -172,7 +172,7 @@ Figure XX.  State space diagram of the main FSM.
 
 <img src="https://cal-poly-me507-mecha07.github.io/Wifi%20FSM.jpg" style="width: 50%; height: 50%">
 
-Figure XX.  State space diagram of the wifi initialization FSM
+Figure 13.  State space diagram of the wifi initialization FSM
 
 <pre>
 
@@ -180,7 +180,7 @@ Figure XX.  State space diagram of the wifi initialization FSM
 
 <img src="https://cal-poly-me507-mecha07.github.io/ADC%20FSM.jpg" style="width: 50%; height: 50%">
 
-Figure XX.  State space diagram of the ADC reading FSM
+Figure 14.  State space diagram of the ADC reading FSM
 
 <pre>
 
@@ -188,7 +188,7 @@ Figure XX.  State space diagram of the ADC reading FSM
 
 <img src="https://cal-poly-me507-mecha07.github.io/Filling%20FSM.jpg" style="width: 50%; height: 50%">
 
-Figure XX.  State space diagram of the filling FSM
+Figure 15.  State space diagram of the filling FSM
 
 <pre>
 
