@@ -19,7 +19,7 @@ The goal of this website is to document our efforts complete the project.  On th
  of the rest of our software.
 
 <img src="https://cal-poly-me507-mecha07.github.io/Feeder%20Picture.jpg" style="width: 50%; height: 50%">
-Figure XX.  Image of the cat feeder.
+Figure 1.  Image of the cat feeder.
 
 Figure XX.  Video of the cat feeder dispensing food
 
