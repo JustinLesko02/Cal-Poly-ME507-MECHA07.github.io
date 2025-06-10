@@ -124,7 +124,6 @@ typedef struct {
 	adc_state_t adcState; /**< next state of the adc reading FSM to run */
 	adc_state_t prevAdcState; /**< the last state of the adc reading FSM to run */
 	int adcStamp; /**< time stamp for adc FSM */
-	int adcStamp2; /**< time stamp for adc reset */
 
 	int targetWeight; /**< target weight set by user */
 	int startWeight; /**< weight at last enable */
@@ -163,6 +162,9 @@ typedef struct {
 	int enaStamp; /**< time stamp for debouncing enable commands */
 
 	bool runOnce; /**< flag to indicate that device should disable after weight is reached */
+
+	int timeOutStamp; /**< a time stamp to track if the filling action has timed out */
+	int lcErrorStamp; /**< a time stamp to track if the load cell is consistently erroring */
 
 } fill_struct_t;
 

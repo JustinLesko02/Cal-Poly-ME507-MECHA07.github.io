@@ -11,7 +11,7 @@ The following content documents our completion of Cal Poly's ME507 Mechatronics 
 
 The cat feeder dispenses food with a large lead screw, and has a pair of load cells to measure the weight of food in the
  bowl.  The feeder is equiped with a wifi module and is programmed to act as an http server.  With port forwarding set up
- on a local network, the user can use any browser to access the feeder controls from anywhere in with internet access.
+ on a local network, the user can use any browser to access the feeder controls from anywhere with internet access.
  As a result, the user can be out of town and still log in to feed the cat.
 
 The goal of this website is to document our efforts complete the project.  On this page, we include an overview of our 
@@ -196,6 +196,12 @@ The main function first initializes the interface, then the ADC, and finally sta
  responds with the appropriate data.  The run_interface function is non-blocking.  Then the main loop calls the run_filler 
  function, which runs the ADC FSM and the filling FSM.  The main loop is slowed to a speed of 100Hz to allow time for the wifi
  module uart connection to fill in the buffer.
+
+A top priority of this project is maximizing reliability.  If the user is out of town, the device needs to remain functional
+ over long periods of time without any errors, to ensure the cat remains fed.  To clarify, the device doesn't need to be functional 
+ 100% of the time, but it does need to recover after every error.  As a result, we have implemented code to automatically reset the
+ device every 5 minutes after saving all key values in flash memory.  As a result, in the event of a software error or glitch in one
+ of the peripherals, the user only needs to wait 5 minutes to reestablish functionality.
 
 To maximize compatibility with the STM32CubeIDE, the software was written in c.  The software follows a pseudo object oriented
  style, with each file having 1-2 structs and a series of local functions for interacting with the structs.

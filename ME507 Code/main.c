@@ -64,6 +64,8 @@ main_state_t mainState = S0_INTERFACE; /**< the next state of the main FSM to ru
 int prevMainState = S2_MAIN; /**< the last state of the main FSM to run */
 int mainStamp = 0; /**< a time stamp for the main FSM */
 
+int resetStamp; /**< a time stamp to keep track of when to reset the MCU */
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -153,11 +155,44 @@ int main(void)
 
     		if ((HAL_GetTick() - mainStamp) > 1000) { // we delay 1 second after adc init
     			mainState = S2_MAIN;
+    			resetStamp = HAL_GetTick();
     		}
     	} else if (mainState == S2_MAIN) { // state 2 is the main loop
     		if (prevMainState != mainState) {
 
     			print_msg("MAIN STATE: 2\r\n");
+
+    			// read the saved data from flash
+    			int status = (*((uint32_t*) 0x08020000));
+    			int weight = (*((uint32_t*) 0x08020008));
+    			int target = (*((uint32_t*) 0x08020010));
+				int offset = (*((uint32_t*) 0x08020018));
+
+				// a status of 444 indicates that the feeder was reset last, rather than powered down
+				if (status == 444) {
+
+    			  char weightMsg[100];
+    			  sprintf(weightMsg, "\r\nSTORED WEIGHT: %d, TARGET: %d, OFFSET: %d\r\n", weight, target, offset);
+    			  print_msg(weightMsg);
+
+    			  // restore the values
+    			  set_offset(offset + (weight - get_weight()));
+    			  set_target(target + (weight - get_weight()));
+
+				}
+
+				// clear the status address in case the system power is disconnected
+				HAL_FLASH_Unlock();
+				FLASH_EraseInitTypeDef eraseInit;
+				uint32_t pageError;
+				eraseInit.TypeErase = FLASH_TYPEERASE_SECTORS;
+				eraseInit.Sector = FLASH_SECTOR_5;
+				eraseInit.NbSectors = 1;
+				eraseInit.VoltageRange = FLASH_VOLTAGE_RANGE_3;
+				HAL_FLASHEx_Erase(&eraseInit, &pageError);
+				HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, 0x08020000, 0);
+				HAL_FLASH_Lock();
+
 				 prevMainState = mainState;
 			}
 
@@ -169,6 +204,32 @@ int main(void)
     			 run_filler();
 
     			 mainStamp = HAL_GetTick();
+    		 }
+
+    		 // reset the device every 5 minutes
+    		 if ((HAL_GetTick() - resetStamp) > 300000) {
+    			 // only reset the device if it's not currently filling
+    			 if (get_fill_state() == S2_MEASURE) {
+
+    				 // write the current values to flash
+					  HAL_FLASH_Unlock();
+					  FLASH_EraseInitTypeDef eraseInit;
+					  uint32_t pageError;
+					  eraseInit.TypeErase = FLASH_TYPEERASE_SECTORS;
+					  eraseInit.Sector = FLASH_SECTOR_5;
+					  eraseInit.NbSectors = 1;
+					  eraseInit.VoltageRange = FLASH_VOLTAGE_RANGE_3;
+					  HAL_FLASHEx_Erase(&eraseInit, &pageError);
+
+					  // the first value is the status.  444 indicates that the system is resetting
+					  HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, 0x08020000, 444);
+					  HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, 0x08020008, get_weight());
+					  HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, 0x08020010, get_target());
+					  HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, 0x08020018, get_offset());
+					  HAL_FLASH_Lock();
+
+					 NVIC_SystemReset();
+    			 }
     		 }
     	}
     /* USER CODE END WHILE */
@@ -331,7 +392,7 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 7;
+  htim3.Init.Prescaler = 3;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim3.Init.Period = 59999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;

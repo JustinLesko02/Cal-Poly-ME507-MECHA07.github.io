@@ -1,8 +1,10 @@
 var _interface_8c =
 [
+    [ "get_offset", "_interface_8c.html#ab18e623aae2dffdda4325f0904137a94", null ],
     [ "init_interface", "_interface_8c.html#ad97a124cc466df28602b58684021ebbd", null ],
     [ "print_msg", "_interface_8c.html#a2ce7c4d064c3b1a3f182c3e830a4c31d", null ],
     [ "run_interface", "_interface_8c.html#ab016b6a4d2cba674a89899ad1bc086e9", null ],
+    [ "set_offset", "_interface_8c.html#a15477080bb9d8a2b77bf9d4a680b2cb8", null ],
     [ "start_interface", "_interface_8c.html#a53ed47c309afe0aee211e2e4d54595f8", null ],
     [ "wifi_interrupt", "_interface_8c.html#a1dcd0bef0d6c224293c0db1eb1faf86b", null ],
     [ "DEMO", "_interface_8c.html#acdf5353a5500692cffd31de3ed2ce6e2", null ],

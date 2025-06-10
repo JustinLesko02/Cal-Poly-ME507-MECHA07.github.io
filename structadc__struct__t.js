@@ -5,7 +5,6 @@ var structadc__struct__t =
     [ "adcOut", "structadc__struct__t.html#acd374dbcfb7ee8d525e78c9e9273dc4d", null ],
     [ "adcOut2", "structadc__struct__t.html#aa06a7a4e06c8965dd5b1517f347919c1", null ],
     [ "adcStamp", "structadc__struct__t.html#adf1622f1a5b3b9c48fc078fb4052379e", null ],
-    [ "adcStamp2", "structadc__struct__t.html#ae7bf3fed4313f0ffce606f178a568b85", null ],
     [ "adcState", "structadc__struct__t.html#a329e38a3bc323064380e5d00b6d48879", null ],
     [ "lcSpi", "structadc__struct__t.html#a81ef003bd59f71a13050b2f32b9b1371", null ],
     [ "lWeight", "structadc__struct__t.html#acf006380c538eede62b1c26b4a93b41d", null ],

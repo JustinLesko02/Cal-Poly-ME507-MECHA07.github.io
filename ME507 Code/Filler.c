@@ -40,6 +40,8 @@ void init_filler(TIM_HandleTypeDef* encTim, TIM_HandleTypeDef* screwTim, TIM_Han
 	fillStruct.runOnce = false;
 	fillStruct.flapTarget = 0;
 	fillStruct.flapStamp = 0;
+	fillStruct.timeOutStamp = HAL_GetTick();
+	fillStruct.lcErrorStamp = -1;
 
 	adcStruct.adcState = S3_READ_LC2;
 	adcStruct.targetWeight = 0;
@@ -48,7 +50,6 @@ void init_filler(TIM_HandleTypeDef* encTim, TIM_HandleTypeDef* screwTim, TIM_Han
 	adcStruct.rWeight = 0;
 	adcStruct.prevIndex = 0;
 	adcStruct.startWeight = -1;
-	adcStruct.adcStamp2 = 0;
 
 	// turn on motors
 	HAL_TIM_PWM_Start(fillStruct.screwTim, TIM_CHANNEL_1);
@@ -75,7 +76,7 @@ void start_adc() {
 	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
 	  HAL_Delay(100);
 
-	  // set the signal lines
+	  // set the signal lines for LC1
 	  adcStruct.adcOut[0] = 0x51;
 	  adcStruct.adcOut[1] = LC1_SIG;
 	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
@@ -83,7 +84,7 @@ void start_adc() {
 	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
 	  HAL_Delay(100);
 
-	  // set the reference lines
+	  // set the reference lines for LC1
 	  adcStruct.adcOut[0] = 0x46;
 	  adcStruct.adcOut[1] = LC1_REF;
 	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
@@ -99,7 +100,78 @@ void start_adc() {
 	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
 	  HAL_Delay(100);
 
-	  adcStruct.adcStamp2 = HAL_GetTick();
+	  // read LC1 weight
+	  adcStruct.adcOut[0] = 0x12;
+	  adcStruct.adcOut[1] = 0x00;
+	  adcStruct.adcOut[2] = 0x00;
+	  adcStruct.adcOut[3] = 0x00;
+	  adcStruct.adcOut[4] = 0x00;
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
+	  HAL_SPI_TransmitReceive(adcStruct.lcSpi, adcStruct.adcOut, adcStruct.adcIn, 5, 1000);
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+	  HAL_Delay(100);
+
+	  // discard the first value and read again
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
+	  HAL_SPI_TransmitReceive(adcStruct.lcSpi, adcStruct.adcOut, adcStruct.adcIn, 5, 1000);
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+	  // parse weight
+	  int nextWeight = ((adcStruct.adcIn[2] << 16) | (adcStruct.adcIn[3] << 8) | (adcStruct.adcIn[4]));
+	  if (nextWeight > 8388608) {
+		  nextWeight = nextWeight - 16777216;
+	  }
+	  // apply polarity and offset
+	  nextWeight = -1*nextWeight - LEFT_OFFSET;
+	  adcStruct.lWeight = nextWeight;
+	  HAL_Delay(100);
+
+	  // set signal line for LC2
+	  adcStruct.adcOut[0] = 0x51;
+	  adcStruct.adcOut[1] = LC2_SIG;
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
+	  HAL_SPI_TransmitReceive(adcStruct.lcSpi, adcStruct.adcOut, adcStruct.adcIn, 2, 1000);
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+	  HAL_Delay(100);
+
+	  // set reference line for LC2
+	  adcStruct.adcOut[0] = 0x46;
+	  adcStruct.adcOut[1] = LC2_REF;
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
+	  HAL_SPI_TransmitReceive(adcStruct.lcSpi, adcStruct.adcOut, adcStruct.adcIn, 2, 1000);
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+	  HAL_Delay(100);
+
+	  // start conversion
+	  adcStruct.adcOut[0] = 0x08;
+	  adcStruct.adcOut[1] = 0x00;
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
+	  HAL_SPI_TransmitReceive(adcStruct.lcSpi, adcStruct.adcOut, adcStruct.adcIn, 2, 1000);
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+	  HAL_Delay(100);
+
+	  // read LC2 weight
+	  adcStruct.adcOut[0] = 0x12;
+	  adcStruct.adcOut[1] = 0x00;
+	  adcStruct.adcOut[2] = 0x00;
+	  adcStruct.adcOut[3] = 0x00;
+	  adcStruct.adcOut[4] = 0x00;
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
+	  HAL_SPI_TransmitReceive(adcStruct.lcSpi, adcStruct.adcOut, adcStruct.adcIn, 5, 1000);
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+	  HAL_Delay(100);
+
+	  // discard the first value and read again
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
+	  HAL_SPI_TransmitReceive(adcStruct.lcSpi, adcStruct.adcOut, adcStruct.adcIn, 5, 1000);
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
+	  // parse weight
+	  nextWeight = ((adcStruct.adcIn[2] << 16) | (adcStruct.adcIn[3] << 8) | (adcStruct.adcIn[4]));
+	  if (nextWeight > 8388608) {
+		  nextWeight = nextWeight - 16777216;
+	  }
+	  nextWeight = -1*nextWeight - RIGHT_OFFSET;
+	  adcStruct.rWeight = nextWeight;
+
 }
 
 void run_filler() {
@@ -107,25 +179,6 @@ void run_filler() {
 	if (adcStruct.adcState == S0_SET_LC1) {
 		if (adcStruct.prevAdcState != adcStruct.adcState) {
 
-			if ((HAL_GetTick() - adcStruct.adcStamp2) > 600000) {
-				// reset the device
-				  adcStruct.adcOut[0] = 0x06;
-				  adcStruct.adcOut[1] = 0x00;
-				  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
-				  HAL_SPI_TransmitReceive(adcStruct.lcSpi, adcStruct.adcOut, adcStruct.adcIn, 2, 1000);
-				  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
-				  HAL_Delay(100);
-
-				  // set the status register
-				  adcStruct.adcOut[0] = 0x41;
-				  adcStruct.adcOut[1] = 0b00000000;
-				  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
-				  HAL_SPI_TransmitReceive(adcStruct.lcSpi, adcStruct.adcOut, adcStruct.adcIn, 2, 1000);
-				  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
-				  HAL_Delay(500);
-
-				  adcStruct.adcStamp2 = HAL_GetTick();
-			}
 			  // set signal line
 			  adcStruct.adcOut[0] = 0x51;
 			  adcStruct.adcOut[1] = LC1_SIG;
@@ -266,6 +319,7 @@ void run_filler() {
 
 	  int aveWeight = (adcStruct.lWeight + adcStruct.rWeight) / 2;
 
+	  // if the enable state has been toggled, record the start weight
 	  if (fillStruct.enaState == 0) {
 	  		adcStruct.startWeight = -1;
 	  	} else {
@@ -273,6 +327,12 @@ void run_filler() {
 	  			adcStruct.startWeight = aveWeight;
 	  		}
 	  	}
+
+	  // if the filling isn't working, stop and error out
+	  if ((HAL_GetTick() - fillStruct.timeOutStamp) > 60000) {
+		  fillStruct.enaState = -1;
+		  fillStruct.timeOutStamp = HAL_GetTick();
+	  }
 
 	  if (fillStruct.fillState == S0_MAN_ADV) { // manual screw advance
 		  if (fillStruct.prevFillState != fillStruct.fillState) {
@@ -296,16 +356,35 @@ void run_filler() {
 		  __HAL_TIM_SET_COMPARE(fillStruct.screwTim, TIM_CHANNEL_1, 0);
 		  fillStruct.prevFillState = fillStruct.fillState;
 
+		  // check if the load cell is reading a bad value
+		  if (fillStruct.enaState == 1) {
+			  if ((adcStruct.targetWeight - aveWeight > 65) || (adcStruct.targetWeight - aveWeight < -65)) {
+				  if (fillStruct.lcErrorStamp == -1) {
+					  fillStruct.lcErrorStamp = HAL_GetTick();
+				  }
+				  if ((HAL_GetTick() - fillStruct.lcErrorStamp) > 5000) {
+					  fillStruct.enaState = -2;
+					  fillStruct.lcErrorStamp = -1;
+				  }
+			  }
+		  }
+
 		  if (adcStruct.targetWeight > aveWeight + 5) {
 			  if (fillStruct.enaState == 1) {
 				  fillStruct.fillState = S3_ADVANCE;
+			  } else {
+				  fillStruct.timeOutStamp = HAL_GetTick();
 			  }
 		  } else {
+
+			  fillStruct.timeOutStamp = HAL_GetTick();
+
 			  if (fillStruct.runOnce) { // if we are at weight and set to run once, disable
 				  fillStruct.enaState = 0;
 				  fillStruct.runOnce = false;
 			  }
 		  }
+
 	  } else if (fillStruct.fillState == S3_ADVANCE) { // advance the screw
 		  if (fillStruct.prevFillState != fillStruct.fillState) {
 			  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET);
@@ -318,11 +397,11 @@ void run_filler() {
 			  fillStruct.fillState = S2_MEASURE;
 		  } else {
 
-			  int delay = 8000;
+			  int delay = 4000;
 			  if ((adcStruct.targetWeight - adcStruct.startWeight) > 50) {
 				  delay = 3000;
 			  } else if ((adcStruct.targetWeight - adcStruct.startWeight) > 30) {
-				  delay = 5000;
+				  delay = 2000;
 			  }
 			  if ((HAL_GetTick() - fillStruct.fillStamp) > delay) {
 				  fillStruct.fillState = S4_RETRACT;
@@ -382,7 +461,7 @@ void run_filler() {
 			  fillStruct.flapStamp = HAL_GetTick();
 		  }
 
-	  } else if (fillStruct.flapCurrent > fillStruct.flapTarget + 200) {
+	  } else if (fillStruct.flapCurrent > fillStruct.flapTarget + 20) {
 		  if (((HAL_GetTick() - fillStruct.flapStamp) < 5000) || (fillStruct.flapStamp <= 0)) {
 			  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10, GPIO_PIN_SET);
 			  __HAL_TIM_SET_COMPARE(fillStruct.flapTim, TIM_CHANNEL_1, FLAP_AR/2);
@@ -400,12 +479,13 @@ void run_filler() {
 
 void enable_filler() {
 	if ((HAL_GetTick() - fillStruct.enaStamp) > 1000) {
-		if (fillStruct.enaState == 0) {
-			fillStruct.enaState = 1;
+		if (fillStruct.enaState != 0) {
+			fillStruct.enaState = 0;
 		  } else {
-			  fillStruct.enaState = 0;
+			  fillStruct.enaState = 1;
 		  }
 		fillStruct.enaStamp = HAL_GetTick();
+		fillStruct.timeOutStamp = HAL_GetTick();
 	}
 }
 
@@ -445,4 +525,8 @@ void run_once() {
 
 void set_target(int newTarget) {
 	adcStruct.targetWeight = newTarget;
+}
+
+fill_state_t get_fill_state() {
+	return fillStruct.fillState;
 }

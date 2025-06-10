@@ -7,9 +7,8 @@ var searchData=
   ['adcout_4',['adcOut',['../structadc__struct__t.html#acd374dbcfb7ee8d525e78c9e9273dc4d',1,'adc_struct_t']]],
   ['adcout2_5',['adcOut2',['../structadc__struct__t.html#aa06a7a4e06c8965dd5b1517f347919c1',1,'adc_struct_t']]],
   ['adcstamp_6',['adcStamp',['../structadc__struct__t.html#adf1622f1a5b3b9c48fc078fb4052379e',1,'adc_struct_t']]],
-  ['adcstamp2_7',['adcStamp2',['../structadc__struct__t.html#ae7bf3fed4313f0ffce606f178a568b85',1,'adc_struct_t']]],
-  ['adcstate_8',['adcState',['../structadc__struct__t.html#a329e38a3bc323064380e5d00b6d48879',1,'adc_struct_t']]],
-  ['adcstruct_9',['adcStruct',['../_filler_8c.html#aeb98e0cdde220ecd826b6e6ae2a48f73',1,'Filler.c']]],
-  ['advance_5fscrew_10',['advance_screw',['../_filler_8c.html#a8e574eb45b4a3977ba71faa3c075be8b',1,'advance_screw():&#160;Filler.c'],['../_filler_8h.html#a8e574eb45b4a3977ba71faa3c075be8b',1,'advance_screw():&#160;Filler.c']]],
-  ['and_20justin_20lesko_11',['Hello! Welcome to our Mechatronics Term Project. Created by Evan Long and Justin Lesko.',['../index.html#autotoc_md0',1,'']]]
+  ['adcstate_7',['adcState',['../structadc__struct__t.html#a329e38a3bc323064380e5d00b6d48879',1,'adc_struct_t']]],
+  ['adcstruct_8',['adcStruct',['../_filler_8c.html#aeb98e0cdde220ecd826b6e6ae2a48f73',1,'Filler.c']]],
+  ['advance_5fscrew_9',['advance_screw',['../_filler_8c.html#a8e574eb45b4a3977ba71faa3c075be8b',1,'advance_screw():&#160;Filler.c'],['../_filler_8h.html#a8e574eb45b4a3977ba71faa3c075be8b',1,'advance_screw():&#160;Filler.c']]],
+  ['and_20justin_20lesko_10',['Hello! Welcome to our Mechatronics Term Project. Created by Evan Long and Justin Lesko.',['../index.html#autotoc_md0',1,'']]]
 ];

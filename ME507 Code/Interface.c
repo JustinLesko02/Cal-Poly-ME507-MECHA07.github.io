@@ -135,6 +135,7 @@ int start_interface() {
 
 			  interStruct.TS = HAL_GetTick();
 
+			  // if fast start is enabled, we skip this step and rely on the wifi module to remember the network
 			  if (!FAST_START) {
 				  if (!DEMO) {
 					  len = sprintf(interStruct.wifiOut, "AT+CWJAP=\"arnoldPALMers\",\"narwalls\"\r\n");
@@ -185,7 +186,7 @@ int start_interface() {
 		  }
 
 		  if ((HAL_GetTick() - interStruct.TS) > 2000) {
-			  interStruct.initState = S6_DONE;
+			  interStruct.initState = S0_DELAY;
 			  interStruct.TS = HAL_GetTick();
 			  return 1;
 		  }
@@ -308,10 +309,16 @@ void run_interface() {
 
 						  // first determine what to display
 						  char* enaStr;
-						  if (get_enable_state() == 1) {
-							  enaStr = "ENABLED";
-						  } else {
+						  if (get_enable_state() == 0) {
 							  enaStr = "DISABLED";
+						  } else if (get_enable_state() == 1) {
+							  enaStr = "ENABLED";
+						  } else if (get_enable_state() == -1) {
+							  enaStr = "TIMOUT ERROR";
+						  } else if (get_enable_state() == -2) {
+							  enaStr = "LOAD CELL ERROR";
+						  } else {
+							  enaStr = "?";
 						  }
 
 						  // calculate length of content
@@ -483,8 +490,6 @@ void run_interface() {
 					  }
 				  }
 			  }
-
-
 		  }
 	  }
 
@@ -501,9 +506,21 @@ void print_msg(char* msg) {
 }
 
 void wifi_interrupt(UART_HandleTypeDef *huart) {
+	// store the char in the buffer
 	interStruct.wifiIn[interStruct.wifiIndex] = interStruct.wifiChar;
+	// increment the index
 	if (interStruct.wifiIndex < 99) {
 		interStruct.wifiIndex++;
 	}
+	// setup the next interrupt
 	HAL_UART_Receive_IT(huart, &interStruct.wifiChar, 1);
 }
+
+int get_offset() {
+	return interStruct.offset;
+}
+
+void set_offset(int offset) {
+	interStruct.offset = offset;
+}
+

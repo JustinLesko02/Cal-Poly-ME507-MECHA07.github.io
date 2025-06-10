@@ -51,6 +51,10 @@ void wifi_interrupt(UART_HandleTypeDef *huart);
  */
 void print_msg(char* msg);
 
+int get_offset();
+
+void set_offset(int offset);
+
 /** @brief List of valid states for the interface initialization FSM*/
 typedef enum {
 	S0_DELAY,

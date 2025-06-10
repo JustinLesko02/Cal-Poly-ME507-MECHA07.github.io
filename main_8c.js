@@ -17,5 +17,6 @@ var main_8c =
     [ "huart2", "main_8c.html#aa9479c261d65eecedd3d9582f7f0f89c", null ],
     [ "mainStamp", "main_8c.html#a90005858c62b4bff8b522f98d8317e88", null ],
     [ "mainState", "main_8c.html#acc9c4e4afaa58ae9479d0b2a5b0360ac", null ],
-    [ "prevMainState", "main_8c.html#a70c727f50c998932fcea52db74a2da28", null ]
+    [ "prevMainState", "main_8c.html#a70c727f50c998932fcea52db74a2da28", null ],
+    [ "resetStamp", "main_8c.html#a49938c62d80ba156c4c3323d07e0995d", null ]
 ];
