@@ -67,6 +67,10 @@ The load cells are cheap 5kg parallel beam load cells for hobby applications.  W
  it will dispense more food even if there is currently food in the bowl.  To overcome this, we would either need higher quality
  load cells or some other sensor to detect the fill level.
 
+ <pre>
+
+</pre>
+
 <img src="https://cal-poly-me507-mecha07.github.io/CAD%20Screenshot.png" style="width: 50%; height: 50%">
 
 Figure 4.  Isometric view of the cat feeder 3D model.
