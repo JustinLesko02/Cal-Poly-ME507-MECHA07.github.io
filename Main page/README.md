@@ -56,10 +56,21 @@ The mechanical structure was constructed primarily with aluminum and acryllic sh
  The primary dispensing action is accomplished with a 3D printed lead screw powered by a geared stepper motor.  To assist
  the filling, there is a second stepper motor with a brush flap to push the cat food all the way into the bowl.
 
+The screw motor is a NEMA23 stepper motor with 1.2 N-m of torque connected to a 20:1 planetary gearbox.  The flap motor is
+ a NEMA17 stepper motor with 0.52 N-m of torque and an integrated 1000PPR encoder.  Both motors are set with a current limit
+ just under 2A, although we suspect that due to the resistance of traces on our board used for current limit feedback control
+ we may not be getting the full torque.  The encoders are optical encoders with a quadrature output.
+
+The load cells are cheap 5kg parallel beam load cells for hobby applications.  We found them to reliably measure fast changes
+ in weight, but the cells tend to drift over time, making it impossible to track how much food is actually remaining in the bowl.
+ To compensate, we reset the calibration offset before every dispense.  As a result, the system is open loop in the sense that
+ it will dispense more food even if there is currently food in the bowl.  To overcome this, we would either need higher quality
+ load cells or some other sensor to detect the fill level.
+
 
 Figure 4.  Isometric view of the cat feeder 3D model.
 
-Figure 5.  Isometric view of the cat feeder lead screw.
+Figure 5.  Isometric view of the cat feeder lead screw.  The lead screw was printed in three pieces and assembled together.
 
 <pre>
 
@@ -78,6 +89,27 @@ The PCB was fabricated and assembled by an online PCB manufacturing service.  Th
  underneath the feeder, and the motors and load cells are wired directly the board with the requirement that no wires can be 
  exposed on the outside of the feeder, to prevent the cat from chewing the cables.  The board was programmed with an ST-Link
  module connected via pin headers.
+
+The power regulation circuit accepts 12V from the external power supply.  The first switching regulator provides a noisy
+ 5.5V output, which is fed into two LDO regulators which provide clean 5V and 3.3V, respectively.
+
+The microcontroller has a high speed ceramic crystal, a reset button, and all the required decoupling capacitors.  We also
+had some extra space on the board to break out some extra pins into pin headers, but luckily we never ended up needing them.
+
+The stepper motor drivers accept step and direction input from the MCU.  We wired the drivers such that the current sense
+ feedback resistors are externally inserted into female headers, so we can adjust the current limits without resoldering.
+ The drivers are set to decay the current with synchronous rectification to minimize noise.
+
+The ADC IC communicates with the MCU via SPI.  Both load cells are wired to the one ADC, so the MCU commands the ADC to switch
+ the inputs for every reading so both load cells can be polled regularly.  The load cells are wired with filtering circuitry
+ included on the board, and the ADC provides a filter function as well, but we still found occasional noise in the outputs.
+
+The calendar IC is used to keep track of long periods of time when relying on the high speed crystal would likely cause error.
+ The IC has an external 32.768kHz crystal to regulate time.  It communicates with the MCU via I2C.
+
+The wifi module is a complete breakout board with an integrated MCU to handle wifi connections designed for hobby applications.
+ The wifi module is installed on the board via female headers.  It communicates with the MCU via UART.  To interact with 
+ the module, the MCU sends AT commands over UART.
 
  <pre>
 
@@ -141,6 +173,13 @@ The software installed on the MCU has two goals.  The first goal is dispensing t
 
 A link to our project github can be found here: [GITHUB](https://github.com/Cal-Poly-ME507-MECHA07/Cal-Poly-ME507-MECHA07.github.io)
 
+The software provides a user interface over the hosted http website.  The website displays the current enabled status of the device
+ and allows the user to toggle the state.  It also displays the current and target weights.  There are two main functional modes:
+ feed once, and maintain weight.  Feed once will dispense the right amount of food, then disable the device.  Maintaining the weight
+ will attempt to keep the level of the food bowl constant, but we have found that due to the slow drift of our load cells this
+ function is only reliable for short periods of time.  Also on the website are buttons to manually advance the screw or cycle the
+ flap, mostly for testing.
+
 Naturally, the 96MHz MCU speed is overkill for the speed that the cat feeder needs to update its outputs.  As
  a result, we have the freedom to complete the control logic with simple Finite State Machines (FSM).  The filling action
  is accompished with two FSMs.  The first FSM is responsible for reading the load cell values from the ADC.  The second 
@@ -157,6 +196,9 @@ The main function first initializes the interface, then the ADC, and finally sta
  responds with the appropriate data.  The run_interface function is non-blocking.  Then the main loop calls the run_filler 
  function, which runs the ADC FSM and the filling FSM.  The main loop is slowed to a speed of 100Hz to allow time for the wifi
  module uart connection to fill in the buffer.
+
+To maximize compatibility with the STM32CubeIDE, the software was written in c.  The software follows a pseudo object oriented
+ style, with each file having 1-2 structs and a series of local functions for interacting with the structs.
 
  <pre>
 
@@ -226,6 +268,25 @@ Due to the scope of the project and the timeline we had it was inevitable that w
  interaction with modern web browsers.  Modern web browsers have various requirements about how http servers need to 
  behave.  Further, these requirements are not well documented and web browsers provide very little error feedback.
  As a result, developing the server required a lot of guess and check before our browsers would accept the website.
+
+6. Load cell drift.  Our initial goal with this project was to use the load cells to track how much food the cat eats,
+ and provide the user with the option to regulate food and view how much has been eaten.  Unfortunately, after building
+ the feeder we found that the load cells tend to drift over time.  As a result, we have no method of detecting when food
+ is being eaten, because we cannot distinguish load cell drift from actual food removal.  It is therefore up to the user
+ to determine how often and how much to feed so the cat has enough food, but the bowl doesn't overflow.  Future work will
+ likely include mounting a webcam somewhere on the feeder so the user can view the bowl remotely.
+
+ <pre>
+
+
+
+</pre>
+
+### Bill of Materials
+
+<img src="https://cal-poly-me507-mecha07.github.io/Feeder%20BOM.jpg" style="width: 50%; height: 50%">
+
+Figure 16.  Bill of Materials for the electrical and mechanical assemblies.
 
  <pre>
 
