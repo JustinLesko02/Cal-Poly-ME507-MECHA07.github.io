@@ -18,6 +18,8 @@ The goal of this website is to document our efforts complete the project.  On th
  mechanical, electrical, and software designs.  Also included on this page is navigation to more in depth documentation
  of the rest of our software.
 
+ A link to our project github can be found here: [GITHUB](https://github.com/Cal-Poly-ME507-MECHA07/Cal-Poly-ME507-MECHA07.github.io)
+
  <pre>
 
 </pre>
@@ -272,7 +274,7 @@ Due to the scope of the project and the timeline we had it was inevitable that w
 3. Incorrect voltage regulator feedback resistor value.  When ordering the board, I found that the online assembly service did
  not have the exact value of resistor I needed.  I picked the closest value and ordered the board.  Later, I double checked
  my work and found that the new value I picked would decrease the output voltage of the regulator to an unacceptable level.
- As a result, we had to swap out the resistor manually after the board arrived
+ As a result, we had to swap out the resistor manually after the board arrived.
 
 4. Insufficient flap motor torque.  We wanted the flap motor to be current limited such that it is incapable of harming the 
  cat.  We selected a motor with a very small output torque.  After testing, we found that the torque was insufficient to
@@ -297,7 +299,7 @@ Due to the scope of the project and the timeline we had it was inevitable that w
  against it.  We found that the noise from the ADC was infrequent but yielded extremely high values.  As a result,
  the filter output was more a measure of how many noisy inputs were received in the given time period than an actual measure
  of the weight.  As a result, we moved toward a more simple filter that simply compares each value to the last value and
- discards it if the difference exceeds a threshold
+ discards it if the difference exceeds a threshold.
 
  <pre>
 
