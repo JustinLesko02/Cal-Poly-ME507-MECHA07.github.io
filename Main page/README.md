@@ -276,6 +276,12 @@ Due to the scope of the project and the timeline we had it was inevitable that w
  to determine how often and how much to feed so the cat has enough food, but the bowl doesn't overflow.  Future work will
  likely include mounting a webcam somewhere on the feeder so the user can view the bowl remotely.
 
+7. Load cell filtering.  We attempted to apply a finite impulse response filter to the ADC output, but ultimately decided
+ against it.  We found that the noise from the ADC was infrequent but yielded extremely high values.  As a result,
+ the filter output was more a measure of how many noisy inputs were received in the given time period than an actual measure
+ of the weight.  As a result, we moved toward a more simple filter that simply compares each value to the last value and
+ discards it if the difference exceeds a threshold
+
  <pre>
 
 
