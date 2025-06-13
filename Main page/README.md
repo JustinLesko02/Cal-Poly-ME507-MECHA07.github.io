@@ -9,7 +9,7 @@ The following content documents our completion of Cal Poly's ME507 Mechatronics 
  of the spring 2025 quarter, we designed the cat feeder and custom PCB, ordered the parts, wired everything up, and 
  programmed the feeder to create a functional final product.
 
-The cat feeder dispenses food with a large lead screw, and has a pair of load cells to measure the weight of food in the
+Hello! The cat feeder dispenses food with a large lead screw, and has a pair of load cells to measure the weight of food in the
  bowl.  The feeder is equiped with a wifi module and is programmed to act as an http server.  With port forwarding set up
  on a local network, the user can use any browser to access the feeder controls from anywhere with internet access.
  As a result, the user can be out of town and still log in to feed the cat.
