@@ -291,20 +291,20 @@ Due to the scope of the project and the timeline we had it was inevitable that w
  Beyond just checking the website, the UART connection used for setting up the server and website frequently drops
  characters, making the website setup inconsistent. 
 
-7. Load cell drift.  Our initial goal with this project was to use the load cells to track how much food the cat eats,
+6. Load cell drift.  Our initial goal with this project was to use the load cells to track how much food the cat eats,
  and provide the user with the option to regulate food and view how much has been eaten.  Unfortunately, after building
  the feeder we found that the load cells tend to drift over time.  As a result, we have no method of detecting when food
  is being eaten, because we cannot distinguish load cell drift from actual food removal.  It is therefore up to the user
  to determine how often and how much to feed so the cat has enough food, but the bowl doesn't overflow.  Future work will
  likely include mounting a webcam somewhere on the feeder so the user can view the bowl remotely.
 
-8. Load cell filtering.  We attempted to apply a finite impulse response filter to the ADC output, but ultimately decided
+7. Load cell filtering.  We attempted to apply a finite impulse response filter to the ADC output, but ultimately decided
  against it.  We found that the noise from the ADC was infrequent but yielded extremely high values.  As a result,
  the filter output was more a measure of how many noisy inputs were received in the given time period than an actual measure
  of the weight.  As a result, we moved toward a more simple filter that simply compares each value to the last value and
  discards it if the difference exceeds a threshold.
 
-9. Calendar IC Alarms. Firstly, we accidentally overlooked connecting the interrupts pins from the calendar IC to the MCU,
+8. Calendar IC Alarms. Firstly, we accidentally overlooked connecting the interrupts pins from the calendar IC to the MCU,
  so currently we handle alarms using polling. In addition, receiving the current date and time from the http server proved very
  buggy when testing the website, so the user currently plans the feeding by inputting the desired feed time relative to the
  current time. Future development on the website will add absolute time alarms. 
