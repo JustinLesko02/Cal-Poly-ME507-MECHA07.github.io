@@ -207,9 +207,9 @@ The largest challenge of the software was getting the http server working.  The 
 
 The main function first initializes the interface, then the ADC, and finally starts the main loop.  The main loop then calls
  the run_interface function, which checks for UART commands from the ST-Link and connection requests from the wifi module,
- responds with the appropriate data, and also handles alarms set by the user.  The run_interface function is non-blocking.  Then the main loop calls the run_filler 
- function, which runs the ADC FSM and the filling FSM.  The main loop is slowed to a speed of 100Hz to allow time for the wifi
- module uart connection to fill in the buffer.
+ responds with the appropriate data, and handles alarms set by the user.  The run_interface function is non-blocking.  
+ Then the main loop calls the run_filler function, which runs the ADC FSM and the filling FSM.  The main loop is slowed to a 
+ speed of 100Hz to allow time for the wifi module uart connection to fill in the buffer.
 
 A top priority of this project is maximizing reliability.  If the user is out of town, the device needs to remain functional
  over long periods of time without any errors, to ensure the cat remains fed.  To clarify, the device doesn't need to be functional 
